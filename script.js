@@ -1,19 +1,17 @@
-let ageInput = document.getElementById("age");
-let nameInput = document.getElementById("name");
-let submitButton = document.getElementById("btn");
+document.getElementById("userForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent form submission
 
-submitButton.addEventListener("click", function handleSubmit() {
-    let ageValue = parseInt(ageInput.value);
-    let nameValue = nameInput.value.trim();
+    let ageValue = parseInt(document.getElementById("age").value);
+    let nameValue = document.getElementById("name").value.trim();
 
     // Validation for empty fields
     if (!nameValue || isNaN(ageValue)) {
-        alert("Please enter valid details.");
+        alert("Please enter valid details"); // Removed the period
         return;
     }
 
     // Creating the promise
-    const myPromise = new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
         setTimeout(() => {
             if (ageValue > 18) {
                 resolve(`Welcome, ${nameValue}. You can vote.`);
@@ -21,10 +19,7 @@ submitButton.addEventListener("click", function handleSubmit() {
                 reject(`Oh sorry ${nameValue}. You aren't old enough.`);
             }
         }, 4000);
-    });
-
-    // Handling promise resolution
-    myPromise
-        .then((message) => alert(message))
-        .catch((error) => alert(error));
+    })
+    .then((message) => alert(message))
+    .catch((error) => alert(error));
 });
